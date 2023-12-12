@@ -1,0 +1,10 @@
+import { dbDataBase, dbHost, dbPassword, dbUser } from "../environment/config";
+
+export const dbConfig = {
+  HOST: dbHost,
+  USER: dbUser,
+  PASSWORD: dbPassword,
+  DATABASE: dbDataBase,
+  DIALECT: "mysql",
+  PORT: 3306,
+};
