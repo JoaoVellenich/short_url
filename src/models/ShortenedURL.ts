@@ -34,7 +34,7 @@ const ShortenedURLs = db.define("ShortenedURLs", {
     type: Sequelize.DATE,
   },
   userId: {
-    allowNull: false,
+    allowNull: true,
     type: Sequelize.INTEGER,
   },
 });

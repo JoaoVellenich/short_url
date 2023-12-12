@@ -4,6 +4,7 @@ import * as bcrypt from "bcrypt";
 
 import { loginUserParams } from "../../../validations/userJoi";
 import User from "../../../models/User";
+import { jwtSecret } from "../../../environment/config";
 
 export async function LoginUserHandle(
   req: Request,
@@ -29,7 +30,7 @@ export async function LoginUserHandle(
       if (match) {
         const token = jwt.sign(
           { email: value.email, id: findUserByEmail.dataValues.id },
-          "your_secret_key",
+          jwtSecret,
           {
             expiresIn: "2h",
           }
