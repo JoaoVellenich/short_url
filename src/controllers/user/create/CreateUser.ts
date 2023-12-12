@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import bcrypt from "bcrypt";
+
 import { createUserParams } from "../../../validations/userJoi";
 import User from "../../../models/User";
 
@@ -23,12 +25,15 @@ export async function CreateUserHandle(
     });
     if (!findUserByEmail) {
       const date = new Date();
+      const salt = await bcrypt.genSalt(12);
+      const passwordHash = await bcrypt.hash(value.password, salt);
       await User.create({
         email: value.email,
-        password: value.password,
+        password: passwordHash,
         createdAt: date.getTime(),
         updatedAt: date.getTime(),
       });
+      res.status(204).send("User Created");
     } else {
       res.status(400).send(`User with email: ${value.email} already exists`);
       return;
