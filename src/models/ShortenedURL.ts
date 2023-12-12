@@ -33,6 +33,10 @@ const ShortenedURLs = db.define("ShortenedURLs", {
     allowNull: true,
     type: Sequelize.DATE,
   },
+  userId: {
+    allowNull: false,
+    type: Sequelize.INTEGER,
+  },
 });
 
 export default ShortenedURLs;
