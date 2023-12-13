@@ -18,7 +18,7 @@ export async function LoginUserHandle(
     const { value, error } = loginUserParams.validate(params);
     if (error) {
       console.log(error);
-      res.status(400).send(error);
+      res.status(401).send(error);
       return;
     }
     const findUserByEmail = await User.findOne({
@@ -37,9 +37,12 @@ export async function LoginUserHandle(
         );
         res.status(200).send({ token: token });
         return;
+      } else {
+        res.status(400).send(`Wrong user`);
+        return;
       }
     }
-    res.status(400).send(`No user found with ${value.email}`);
+    res.status(404).send(`No user found with ${value.email}`);
     return;
   } catch (error) {
     console.log(error);

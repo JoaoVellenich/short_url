@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "short url API",
+    "description": "Essa api tem como objetivo encurtar o tamanho das URLs",
+    "contact": {
+      "email": "jpvellenich@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/",
+      "description": "Api de testes"
+    }
+  ],
+  "paths": {
+    "/api/url/short": {
+      "post": {
+        "summary": "Encurtamento da URL",
+        "description": "Rota para o encurtamento da URL",
+        "tags": [
+          "URL"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/shortUrl"
+              },
+              "examples": {
+                "url": {
+                  "value": {
+                    "url": "https://teddy360.com.br/material/marco-legal-das-garantias-sancionado-entenda-o-que-muda/"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": {
+            "description": "Internal error"
+          },
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/shortUrlResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/url/list": {
+      "get": {
+        "summary": "Pegar as minhas URLs",
+        "description": "Rota para pegar as URLs de um usuario",
+        "tags": [
+          "URL"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/listUrlResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token não fornecido"
+          },
+          "403": {
+            "description": "Token invalido"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/api/url/{id}": {
+      "get": {
+        "summary": "Pegar URL por id",
+        "description": "Rota para o pegar uma URL pelo id",
+        "tags": [
+          "URL"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da URL que sera excluida",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/getUrlByIdResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Url nao encontrada"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletar URL",
+        "description": "Rota para o excluir uma URL",
+        "tags": [
+          "URL"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da URL que sera excluida",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Url deletada"
+          },
+          "401": {
+            "description": "Token não fornecido"
+          },
+          "403": {
+            "description": "Token invalido"
+          },
+          "404": {
+            "description": "Url nao encontrada"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/api/users/create": {
+      "post": {
+        "summary": "Criar Usuario",
+        "description": "Rota para a criacao de um novo usuario",
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "Email ou senha mal escrito"
+          },
+          "401": {
+            "description": "Usuario ja existe"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "post": {
+        "summary": "Login de Usuario",
+        "description": "Rota para o login de um usuario",
+        "tags": [
+          "Usuario"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/loginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email ou senha mal escrito"
+          },
+          "401": {
+            "description": "Senha ou email incorreto"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "shortUrl": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "shortUrlResponse": {
+        "type": "object",
+        "properties": {
+          "shortedUrl": {
+            "type": "string"
+          },
+          "id": {
+            "type": "number"
+          }
+        }
+      },
+      "listUrlResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "clickCount": {
+            "type": "number"
+          },
+          "originalUrl": {
+            "type": "string"
+          },
+          "shortenedUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "getUrlByIdResponse": {
+        "type": "object",
+        "properties": {
+          "shortenedUrl": {
+            "type": "string"
+          },
+          "originalUrl": {
+            "type": "string"
+          },
+          "clickCount": {
+            "type": "number"
+          }
+        }
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "loginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Bearer"
+      }
+    }
+  }
+}

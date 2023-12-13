@@ -7,7 +7,7 @@ export async function getUrlById(req: Request, res: Response): Promise<void> {
     const hasUrl = await ShortenedURLs.findByPk(urlId);
     if (hasUrl && hasUrl.dataValues.excludeAt === null) {
       res.status(200).send({
-        shortenedUrl: hasUrl.dataValues.shortenedUrl,
+        shortenedUrl: `http://localhost:8080/${hasUrl.dataValues.shortenedUrl}`,
         originalUrl: hasUrl.dataValues.originalUrl,
         clickCount: hasUrl.dataValues.clickCount,
       });

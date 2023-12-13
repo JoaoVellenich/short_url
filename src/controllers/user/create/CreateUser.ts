@@ -35,7 +35,7 @@ export async function CreateUserHandle(
       });
       res.status(204).send("User Created");
     } else {
-      res.status(400).send(`User with email: ${value.email} already exists`);
+      res.status(401).send(`User with email: ${value.email} already exists`);
       return;
     }
   } catch (error) {

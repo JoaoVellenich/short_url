@@ -1,6 +1,8 @@
 import express from "express";
 import * as expressWinston from "express-winston";
+import swaggerUi from "swagger-ui-express";
 
+import swaggerDocs from "./swagger.json";
 import db from "./models/index";
 import userRoutes from "./routes/UserRoutes";
 import urlRoutes from "./routes/UrlRoutes";
@@ -9,6 +11,8 @@ import { format, transports } from "winston";
 
 const app = express();
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(
   expressWinston.logger({
