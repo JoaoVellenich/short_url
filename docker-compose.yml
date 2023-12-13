@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  mysqldb:
+    container_name: db
+    image: mysql:latest
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=teste123
+      - MYSQL_DATABASE=$DB_DATA_BASE
+      - MYSQL_TCP_PORT=$DB_PORT
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "mysqldb"]
+      timeout: 5s
+      retries: 3
+
+  node_app:
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: ./.env
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=$DOCKER_DB_PORT
+    ports:
+      - "8081:8080"
