@@ -18,3 +18,14 @@ export function authenticateJWT(
     next();
   });
 }
+
+export function authRoute(req: Request, res: Response, next: NextFunction) {
+  const token = req.header("Authorization");
+  if (!token) return res.status(401).json({ message: "Token não fornecido" });
+
+  jwt.verify(token.split(" ")[1], jwtSecret, (err, user) => {
+    if (err) return res.status(403).json({ message: "Token inválido" });
+    res.locals.user = user;
+    next();
+  });
+}

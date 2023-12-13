@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { authenticateJWT } from "../middlewares/token";
+import { authRoute, authenticateJWT } from "../middlewares/token";
 import { shortUrlHandle } from "../controllers/url/shortUrl/short";
+import { listUrlHandle } from "../controllers/url/listUrls/listUrl";
 
 const urlRoutes = Router();
 
+// This route accepts both authenticated users and non-authenticated users
 urlRoutes.post("/short", authenticateJWT, shortUrlHandle);
+
+// This route only accepts authenticated users
+urlRoutes.get("/list", authRoute, listUrlHandle);
 
 export default urlRoutes;
