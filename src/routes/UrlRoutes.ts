@@ -3,8 +3,11 @@ import { authRoute, authenticateJWT } from "../middlewares/token";
 import { shortUrlHandle } from "../controllers/url/shortUrl/short";
 import { listUrlHandle } from "../controllers/url/listUrls/listUrl";
 import { deleteUrlHandle } from "../controllers/url/deleteUrl/deleteUrl";
+import { getUrlById } from "../controllers/url/getUrlById/getUrlById";
 
 const urlRoutes = Router();
+
+urlRoutes.get("/:id", getUrlById);
 
 // This route accepts both authenticated users and non-authenticated users
 urlRoutes.post("/short", authenticateJWT, shortUrlHandle);
