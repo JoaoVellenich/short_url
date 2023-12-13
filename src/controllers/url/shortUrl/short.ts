@@ -13,7 +13,7 @@ export async function shortUrlHandle(
       where: { originalUrl: url },
     });
 
-    if (hasUrlShorted) {
+    if (hasUrlShorted && hasUrlShorted.dataValues.excludeAt == null) {
       const shortedUrl = hasUrlShorted.dataValues.shortenedUrl;
       const urlId = hasUrlShorted.dataValues.id;
       res.status(200).send({
