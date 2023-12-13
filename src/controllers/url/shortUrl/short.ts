@@ -23,13 +23,13 @@ export async function shortUrlHandle(
       return;
     }
     const code = crypto.randomBytes(3).toString("hex");
-    const shortedUrl = `http://localhost/${code}`;
+    const shortedUrl = `http://localhost:8080/${code}`;
 
     const date = new Date();
 
     const newUrl = await ShortenedURLs.create({
       originalUrl: url,
-      shortenedUrl: shortedUrl,
+      shortenedUrl: code,
       createdAt: date.getTime(),
       updatedAt: date.getTime(),
       userId: res.locals.user ? res.locals.user.id : null,
