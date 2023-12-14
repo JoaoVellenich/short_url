@@ -110,6 +110,10 @@ Segue um passo a passo de como executar o código localmente:
    ou 
    npm start
    ```
+   
+### Validação de entrada
+
+Para garantir uma melhor segurança sobre o input do usuário foi implementado o uso do JOI para validar as entradas do usuário, por exemplo, na rota para redirecionar o usuário para a URL de origem, só será valido a entrada de um parâmetro com exatos 6 caracteres, qualquer coisa maior ou menor que isso será desconsiderado e nem irá executar.
 
 ### Pontos de melhoria - Escalabilidade Horizontal
 
