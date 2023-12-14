@@ -110,10 +110,24 @@ Segue um passo a passo de como executar o código localmente:
    ou 
    npm start
    ```
-   
+
 ### Validação de entrada
 
 Para garantir uma melhor segurança sobre o input do usuário foi implementado o uso do JOI para validar as entradas do usuário, por exemplo, na rota para redirecionar o usuário para a URL de origem, só será valido a entrada de um parâmetro com exatos 6 caracteres, qualquer coisa maior ou menor que isso será desconsiderado e nem irá executar.
+
+### Testes
+
+Foi implementado teste na aplicaçào usando jest e supertest para fazer os teste, para roda-los basta rodar o seguinte comando no terminal na raiz do projeto:
+
+```
+yarn test 
+or 
+npm test
+```
+
+### Collection no insomnia
+
+Para facilitar o uso da API foi feito uma collection no insomnia e exportado o json, sendo assim ao fazer o clone do GitHub você irá baixar um arquivo chamado insomnia.json, lá está a collection contendo todas as requisições que são possíveis já configuradas.
 
 ### Pontos de melhoria - Escalabilidade Horizontal
 
