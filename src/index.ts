@@ -10,7 +10,6 @@ import { getShortedHandle } from "./controllers/url/getShorted/get";
 import { format, transports } from "winston";
 import { createDB } from "./config/db-config";
 
-
 const app = express();
 app.use(express.json());
 
@@ -51,4 +50,3 @@ app.listen("8080", async () => {
   await db.sync();
   console.log(`App is runing on http://localhost:8080`);
 });
-

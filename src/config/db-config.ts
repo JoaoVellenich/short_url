@@ -17,12 +17,12 @@ export const dbConfig = {
   PORT: dbPort as number,
 };
 
-export async function createDB():Promise<boolean> {
+export async function createDB(): Promise<boolean> {
   const connection = await mysql2.createConnection({
     user: dbUser,
-    password: dbPassword
-  })
+    password: dbPassword,
+  });
 
-  await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbDataBase};`)
-  return true
+  await connection.query(`CREATE DATABASE IF NOT EXISTS ${dbDataBase};`);
+  return true;
 }

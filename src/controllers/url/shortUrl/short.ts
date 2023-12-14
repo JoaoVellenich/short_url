@@ -17,7 +17,7 @@ export async function shortUrlHandle(
       const shortedUrl = hasUrlShorted.dataValues.shortenedUrl;
       const urlId = hasUrlShorted.dataValues.id;
       res.status(200).send({
-        shortedUrl,
+        shortedUrl: `http://localhost:8080/${shortedUrl}`,
         id: urlId,
       });
       return;

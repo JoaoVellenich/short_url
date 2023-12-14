@@ -15,6 +15,37 @@
     }
   ],
   "paths": {
+    "/{urlShorted}": {
+      "get": {
+        "summary": "Redirecionar",
+        "description": "Rota para redirecionar o usuario para a URL original, por conta de ser uma rota de redirecionamento ela pode n~ao funcionar corretamente no swagger",
+        "tags": [
+          "Redirect"
+        ],
+        "parameters": [
+          {
+            "name": "urlShorted",
+            "in": "path",
+            "description": "URL encurtada",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "400": {
+            "description": "URL mal formatada"
+          },
+          "404": {
+            "description": "Url nao encontrada"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        }
+      }
+    },
     "/api/url/short": {
       "post": {
         "summary": "Encurtamento da URL",
