@@ -8,6 +8,8 @@ import userRoutes from "./routes/UserRoutes";
 import urlRoutes from "./routes/UrlRoutes";
 import { getShortedHandle } from "./controllers/url/getShorted/get";
 import { format, transports } from "winston";
+import { createDB } from "./config/db-config";
+
 
 const app = express();
 app.use(express.json());
@@ -45,6 +47,8 @@ app.use("/api/url", urlRoutes);
 app.get("/:urlShorted", getShortedHandle);
 
 app.listen("8080", async () => {
+  await createDB();
   await db.sync();
   console.log(`App is runing on http://localhost:8080`);
 });
+
